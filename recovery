@@ -1,0 +1,33 @@
+@echo off
+echo PROSES DATA RECOVERY...
+echo =====================================
+setlocal enabledelayedexpansion
+
+set sumber=%USERPROFILE%\Desktop\simulasidriveD
+set tujuan=%USERPROFILE%\Desktop\SimulasiDrive_C
+
+set backup=Backup_%date:/=-%_%time::=-%
+mkdir "%tujuan%\%backup%"
+
+echo Sumber  : %sumber%
+echo Tujuan : %tujuan%\%backup%
+echo.
+
+echo Menghitung total file terlebih dahulu...
+set total=0
+
+
+for /r "%sumber%" %%f in (*.*) do (
+    set /a total+=1
+)
+
+echo Proses menyalin data...
+xcopy "%sumber%" "%tujuan%\%backup%" /E /H /C /I /Y > "%tujuan%\%backup%\recovery_log.txt"
+echo Total file yang akan disalin: %total%
+echo.
+
+echo.
+echo =====================================
+echo RECOVERY SELESAI
+echo File berhasil disalin: %total%
+pause
